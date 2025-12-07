@@ -11,26 +11,28 @@ export async function fetchTree(path: string[] = []): Promise<TreeItem[]> {
 
 
   const parts = rawRepo.replace(/^https?:\/\//, "").split("/").slice(1, 4);
-  if (parts.length < 3) throw new Error("GITHUB_DOCS_REPO must be in format https://github.com/owner/repo/branch");
-  const [owner, repo, branch] = parts;
+  if (parts.length < 3)
+    throw new Error("GITHUB_DOCS_REPO must be in format https://github.com/owner/repo/branch");
 
+  const [owner, repo, branch] = parts;
 
   const indexUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/_index.json`;
 
   let tree: TreeItem[] = [];
   try {
-    const res = await fetch(indexUrl, { cache: "no-store" });
+    const res = await fetch(indexUrl, { cache: "no-store" }); 
     if (!res.ok) {
       console.warn(`Failed to fetch _index.json: ${res.status}`);
       return [];
     }
-    tree = await res.json();
+    tree = (await res.json()) as TreeItem[];
   } catch (err) {
     console.warn("Error fetching _index.json:", err);
     return [];
   }
 
-  let currentLevel = tree;
+
+  let currentLevel: TreeItem[] = tree;
   for (const segment of path) {
     const found = currentLevel.find((t) => t.name === segment && t.type === "dir");
     if (!found || !found.children) return [];
