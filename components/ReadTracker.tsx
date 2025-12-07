@@ -11,17 +11,27 @@ interface ReadTrackerProps {
 export default function ReadTracker({ slugPath, allSlugs }: ReadTrackerProps) {
   const [readSlugs, setReadSlugs] = useState<string[]>([]);
   const [percent, setPercent] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const saved = Cookies.get("readSlugs");
-    if (saved) setReadSlugs(JSON.parse(saved));
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) setReadSlugs(parsed);
+      } catch {}
+    }
     setIsLoading(false);
   }, []);
 
   useEffect(() => {
-    setPercent(Math.round((readSlugs.length / allSlugs.length) * 100));
-  }, [readSlugs, allSlugs.length]);
+    if (allSlugs.length > 0) {
+      const readCount = allSlugs.filter((slug) => readSlugs.includes(slug)).length;
+      setPercent(Math.round((readCount / allSlugs.length) * 100));
+    } else {
+      setPercent(0);
+    }
+  }, [readSlugs, allSlugs]);
 
   const markAsRead = () => {
     if (!readSlugs.includes(slugPath)) {
@@ -41,7 +51,7 @@ export default function ReadTracker({ slugPath, allSlugs }: ReadTrackerProps) {
   }
 
   return (
-    <div className="mb-4 flex flex-col items-start gap-2">
+    <div className="mb-4 flex flex-col items-start gap-2 w-full">
       <button
         onClick={markAsRead}
         className={`px-4 py-2 rounded-lg font-semibold transition
@@ -51,10 +61,9 @@ export default function ReadTracker({ slugPath, allSlugs }: ReadTrackerProps) {
           }`}
       >
         {readSlugs.includes(slugPath) ? "Read ✅" : "Mark as Read"}
-        
       </button>
       <span className="text-gray-700 dark:text-gray-300 text-sm">
-      {percent}%
+        {percent}% of pages read
       </span>
     </div>
   );
