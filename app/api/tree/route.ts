@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
-import { fetchTree } from "@/lib/fetchDocs";
+import { fetchTree, TreeItem } from "@/lib/fetchDocs";
 
 export async function GET() {
-  async function build(path: string[] = []) {
+
+  async function build(path: string[] = []): Promise<TreeItem[]> {
     const items = await fetchTree(path);
 
-    const result = [];
+    const result: TreeItem[] = [];
 
     for (const item of items) {
       if (item.type === "dir") {
@@ -21,6 +22,6 @@ export async function GET() {
     return result;
   }
 
-  const tree = await build([]);
+  const tree = await build();
   return NextResponse.json(tree);
 }
