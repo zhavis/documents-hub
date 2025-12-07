@@ -1,7 +1,6 @@
 'use client';
 
 import Sidebar from './Sidebar';
-import ThemeToggle from './ThemeToggle';
 import { useState, useEffect } from 'react';
 
 export default function SidebarWrapper() {
@@ -26,7 +25,7 @@ export default function SidebarWrapper() {
           <Sidebar searchQuery={searchQuery} />
         )}
       </nav>
-      <ThemeToggle />
+    
     </aside>
   );
 }
