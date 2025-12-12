@@ -4,6 +4,7 @@ import { translateMDX } from "@/lib/translateMDX";
 import ReadTracker from "@/components/ReadTracker";
 import Sidebar from "@/components/Sidebar";
 import { fetchAllSlugsServer } from "@/utils/allslug";
+import SearchBox from "@/components/SearchBox";
 
 export default async function DocPage({ params }: { params: { slug?: string[] } }) {
   const resolvedParams = await params;
