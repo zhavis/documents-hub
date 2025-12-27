@@ -136,7 +136,7 @@ export default function Home() {
               If you already know the basics, let’s jump in and see how Tailwind can save you hours of frustration on your next project!
             </p>
             <div className="mt-6">
-              {/* Pass the activeSlug prop here */}
+             
               <NavigationButtons activeSlug={firstFileSlug} />
             </div>
           </div>
