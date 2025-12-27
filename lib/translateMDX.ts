@@ -2,17 +2,16 @@ import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkStringify from "remark-stringify";
 
-// Dummy translation function
+
 async function translateText(text: string) {
-  return text.replace("Getting Started", "شروع به کار"); // replace with real translation
+  return text.replace("Getting Started", "شروع به کار"); 
 }
 
 export async function translateMDX(mdx: string) {
-  // Parse MDX into AST
+
   const processor = unified().use(remarkParse).use(remarkStringify);
   const tree = processor.parse(mdx);
 
-  // Walk through all text nodes
   async function visit(node: any) {
     if (node.type === "text") {
       node.value = await translateText(node.value);
