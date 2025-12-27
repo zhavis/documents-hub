@@ -110,10 +110,8 @@ export default function Home() {
         </div>
       </div>
 
-
       <div className="w-full pt-20 lg:pt-24 sm:px-6 mx-auto">
         <div className="max-w-2xl">
-        
           <div className="flex justify-between items-center mb-6 gap-x-2">
             <a
               href="/"
@@ -129,7 +127,6 @@ export default function Home() {
             </a>
           </div>
 
-
           <div className="space-y-5 md:space-y-8">
             <h3 className="text-2xl font-semibold">Hey everyone!</h3>
             <p className="text-lg text-gray-800 dark:text-neutral-200">
@@ -139,7 +136,8 @@ export default function Home() {
               If you already know the basics, let’s jump in and see how Tailwind can save you hours of frustration on your next project!
             </p>
             <div className="mt-6">
-              <NavigationButtons />
+              {/* Pass the activeSlug prop here */}
+              <NavigationButtons activeSlug={firstFileSlug} />
             </div>
           </div>
         </div>
@@ -147,3 +145,4 @@ export default function Home() {
     </>
   );
 }
+
