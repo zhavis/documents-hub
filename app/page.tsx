@@ -131,8 +131,8 @@ export default function Home() {
             <h3 className="text-2xl font-semibold">Hey everyone!</h3>
             <p className="text-lg text-gray-800 dark:text-neutral-200">
               This site teaches you the core Tailwind CSS concepts that make building layouts fast, easy.
-              I’m guessing you already know a bit about HTML and CSS — selectors, properties, values, all that jazz.
-              Layouts might still make you pull your hair out sometimes — that’s where Tailwind comes in.
+              I’m guessing you already know a bit about HTML and CSS selectors, properties, values, all that jazz.
+              Layouts might still make you pull your hair out sometimes, that’s where Tailwind comes in.
               If you already know the basics, let’s jump in and see how Tailwind can save you hours of frustration on your next project!
             </p>
             <div className="mt-6">
